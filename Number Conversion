@@ -1,0 +1,337 @@
+ Decimal to binary conversion:
+
+import java.util.*;
+public class Practical1 {
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+       
+       
+        int chooseI,chooseO;
+       
+   
+        System.out.println(&quot;\nChoose input type&quot;);
+        System.out.println(&quot;1.Decimal&quot;);
+        System.out.println(&quot;2.Binary&quot;);
+        System.out.println(&quot;3.Octal&quot;);
+        System.out.println(&quot;4.Hexadecimal&quot;);
+        System.out.print(&quot;Enter : &quot;);
+        chooseI=sc.nextInt();
+       
+        System.out.println(&quot;\nChoose output&quot;);
+        System.out.println(&quot;1.Decimal&quot;);
+        System.out.println(&quot;2.Binary&quot;);
+        System.out.println(&quot;3.Octal&quot;);
+        System.out.println(&quot;4.Hexadecimal&quot;);
+        System.out.print(&quot;Enter : &quot;);
+        chooseO=sc.nextInt();
+       
+        System.out.print(&quot;\nEnter number : &quot;);
+        String num=sc.next();
+       
+        if(chooseI==chooseO)
+        {
+
+            System.out.println(&quot;Same type&quot;+num);
+        }
+        else if(chooseI==1 &amp;&amp; chooseO==2)
+        {
+            System.out.println(&quot;Decimal To Binary : &quot;+DecimalToBinary(num));
+        }
+        else if(chooseI==1 &amp;&amp; chooseO==3)
+        {
+            System.out.println(&quot;Decimal To Octal : &quot;+ DecimalToOctal(num));
+        }
+        else if(chooseI==1 &amp;&amp; chooseO==4)
+        {
+            System.out.println(&quot;Decimal To HexaDecimal : &quot;+ DecimalToHexaDecimal(num));
+        }
+        else if(chooseI==2 &amp;&amp; chooseO==1)
+        {
+            System.out.println(&quot;Binary To Decimal : &quot;+ BinaryToDecimal(num));
+        }
+        else if(chooseI==2 &amp;&amp; chooseO==3)
+        {
+            System.out.println(&quot;Binary To Octal &quot; + DecimalToOctal(BinaryToDecimal(num)));
+        }
+        else if(chooseI==2 &amp;&amp; chooseO==4)
+        {
+            System.out.println(&quot;Binary To Octal &quot; + DecimalToHexaDecimal(BinaryToDecimal(num)));
+        }
+        else if(chooseI==3 &amp;&amp; chooseO==1)
+        {
+            System.out.println(&quot;Octal To Decimal &quot; + OctalToDecimal(num));
+        }
+        else if(chooseI==3 &amp;&amp; chooseO==2)
+        {
+            System.out.println(&quot;Octal To Binary &quot; + DecimalToBinary(OctalToDecimal(num)));
+        }
+        else if(chooseI==3 &amp;&amp; chooseO==4)
+        {
+            System.out.println(&quot;Octal To Hexadecimal &quot; +
+DecimalToHexaDecimal(OctalToDecimal(num)));
+        }
+        else if(chooseI==4 &amp;&amp; chooseO==1)
+        {
+            System.out.println(&quot;HexaDecimal To Decimal &quot; + HexaDecimalToDecimal(num));
+        }
+        else if(chooseI==4 &amp;&amp; chooseO==2)
+        {
+            System.out.println(&quot;HexaDecimal To Binary &quot; +
+DecimalToBinary(HexaDecimalToDecimal(num)));
+        }
+
+        else if(chooseI==4 &amp;&amp; chooseO==3)
+        {
+            System.out.println(&quot;HexaDecimal To Octal &quot; +
+DecimalToOctal(HexaDecimalToDecimal(num)));
+        }
+       
+    }
+
+//DECIMAL TO BINARY
+    public static String DecimalToBinary(String DecimalNumber)
+    {
+      float fnum=Float.parseFloat(DecimalNumber);
+      int inum=(int)fnum;
+      fnum=fnum-inum;
+     
+      //For before decimal
+      String RevAnsInt=&quot;&quot;;
+      while(inum!=0)
+      {
+        if(inum%2==0)
+        {
+          RevAnsInt=RevAnsInt+&quot;0&quot;;
+        }
+        else
+        {
+          RevAnsInt=RevAnsInt+&quot;1&quot;;
+        }
+        inum=inum/2;
+      }
+      String AnsInt=ReverseString(RevAnsInt);
+     
+      //For after decimal
+      String AnsFl=&quot;&quot;;
+      for(int i=0;i&lt;10;i++)
+      {
+        fnum=fnum*2;
+        if((int)fnum==1)
+        {
+          AnsFl=AnsFl+&quot;1&quot;;
+          fnum=fnum-1;
+        }
+        else
+        {
+          AnsFl=AnsFl+&quot;0&quot;;
+        }
+      }
+     
+
+     
+      String RealAns=AnsInt+&quot;.&quot;+AnsFl;
+      return RealAns;
+     
+    }
+   
+//DECIMAL TO OCTAL
+    public static String DecimalToOctal(String DecimalNumber)
+    {
+      float fnum=Float.parseFloat(DecimalNumber);
+      int inum=(int)fnum;
+      fnum=fnum-inum;
+     
+      //For before decimal
+      String RevAnsInt=&quot;&quot;;
+      while(inum!=0)
+      {
+        RevAnsInt=RevAnsInt+ Integer.toString(inum%8);
+        inum=inum/8;
+      }
+      String AnsInt=ReverseString(RevAnsInt);
+     
+      //For after decimal
+      int fcal;
+      String AnsFl=&quot;&quot;;
+      for(int i=0;i&lt;5;i++)
+      {
+        fnum=fnum*8;
+        fcal=(int)fnum;
+        AnsFl=AnsFl+Integer.toString(fcal);
+        fnum=fnum-fcal;
+      }
+     
+     
+      String RealAns=AnsInt+&quot;.&quot;+AnsFl;
+      return RealAns;
+     
+    }
+   
+   
+//DECIMAL TO HEXADECIMAL
+    public static String DecimalToHexaDecimal(String DecimalNumber)
+    {
+        float fnum=Float.parseFloat(DecimalNumber);
+        int inum=(int)fnum;
+        fnum=fnum-inum;
+        //For before decimal
+
+        String RevAnsInt=&quot;&quot;;
+        while(inum!=0)
+        {
+            int ref=inum%16;
+            if(ref&lt;=9)
+            {
+                RevAnsInt=RevAnsInt+ Integer.toString(ref);
+            }
+            else
+            {
+                RevAnsInt=RevAnsInt+ (char)(55+ref);
+            }
+            inum=inum/16;
+        }
+        String AnsInt=ReverseString(RevAnsInt);
+         //For after decimal
+        int fcal;
+        String AnsFl=&quot;&quot;;
+        for(int i=0;i&lt;5;i++)
+        {
+            fnum=fnum*16;
+            fcal=(int)fnum;
+            if(fcal&lt;=9)
+            {
+                AnsFl=AnsFl+Integer.toString(fcal);
+            }
+            else
+            {
+                AnsFl=AnsFl+(char)(55+fcal);
+            }
+            fnum=fnum-fcal;
+        }
+       
+       
+        String RealAns=AnsInt+&quot;.&quot;+AnsFl;
+        return RealAns;
+     
+    }
+   
+//BINARY TO DECIMAL
+    public static String BinaryToDecimal(String BinaryNumber)
+    {
+        double fsum=0;
+        String[] arrOfStr = BinaryNumber.split(&quot;\\.&quot;);
+       
+
+        String beforeFraction=arrOfStr[0];
+       
+        //For Before Fraction
+        for(int i=0;i&lt;beforeFraction.length();i++)
+        {
+            if(beforeFraction.charAt(i)==&#39;1&#39;)
+            {
+                fsum=fsum+Math.pow(2,beforeFraction.length()-1-i);
+            }
+        }
+        //For After Fraction
+        if(BinaryNumber.indexOf(&quot;.&quot;)!=-1)
+        {
+            String afterFraction=arrOfStr[1];
+            for(int i=0;i&lt;afterFraction.length();i++)
+            {
+                if(afterFraction.charAt(i)==&#39;1&#39;)
+                {
+                    fsum=fsum+Math.pow(2,(-1)*(i+1));
+                }
+            }
+        }
+        return Double.toString(fsum);
+    }
+//OCTAL TO DECIMAL
+    public static String OctalToDecimal(String BinaryNumber)
+    {
+        double fsum=0;
+        String[] arrOfStr = BinaryNumber.split(&quot;\\.&quot;);
+       
+        String beforeFraction=arrOfStr[0];
+       
+        //For Before Fraction
+        for(int i=0;i&lt;beforeFraction.length();i++)
+        {
+            if(beforeFraction.charAt(i)!=&#39;0&#39;)
+            {
+                fsum=fsum+(Math.pow(8,beforeFraction.length()-1-
+i)*Integer.parseInt(String.valueOf(beforeFraction.charAt(i))));
+            }
+        }
+        //For After Fraction
+        if(BinaryNumber.indexOf(&quot;.&quot;)!=-1)
+
+        {
+            String afterFraction=arrOfStr[1];
+            for(int i=0;i&lt;afterFraction.length();i++)
+            {
+               
+                fsum=fsum+(Math.pow(8,(-
+1)*(i+1))*Integer.parseInt(String.valueOf(beforeFraction.charAt(i))));
+               
+            }
+        }
+        return Double.toString(fsum);
+    }
+//HEXADECIMAL TO DECIMAL
+    public static String HexaDecimalToDecimal(String BinaryNumber)
+    {
+        double fsum=0;
+        String[] arrOfStr = BinaryNumber.split(&quot;\\.&quot;);
+       
+        String beforeFraction=arrOfStr[0];
+       
+        //For Before Fraction
+        for(int i=0;i&lt;beforeFraction.length();i++)
+        {
+            if(Character.isAlphabetic(beforeFraction.charAt(i)))
+            {
+                fsum=fsum+(Math.pow(16,beforeFraction.length()-1-
+i)*((char)(beforeFraction.charAt(i))-55));
+            }
+            else
+            {
+                fsum=fsum+(Math.pow(16,beforeFraction.length()-1-
+i)*Integer.parseInt(String.valueOf(beforeFraction.charAt(i))));
+            }
+        }
+        //For After Fraction
+        if(BinaryNumber.indexOf(&quot;.&quot;)!=-1)
+        {
+            String afterFraction=arrOfStr[1];
+            for(int i=0;i&lt;afterFraction.length();i++)
+            {
+                if(Character.isAlphabetic(afterFraction.charAt(i)))
+                {
+                    fsum=fsum+(Math.pow(16,(-1)*(i+1))*((char)(afterFraction.charAt(i)))-55);
+
+                }
+                else
+                {
+                    fsum=fsum+(Math.pow(16,(-
+1)*(i+1)*Integer.parseInt(String.valueOf(afterFraction.charAt(i)))));
+                }
+               
+            }
+        }
+        return Double.toString(fsum);
+    }
+   
+   
+   
+    public static String ReverseString(String str)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(str);
+        sb.reverse();
+ 
+        String str2=sb.toString();
+        return str2;
+    }
+}
